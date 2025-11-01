@@ -40,6 +40,11 @@
   color: #888;
 }
 
+.play-button {
+  z-index: 1;
+  position: relative;
+}
+
 canvas {
     position:fixed;
     left:0;

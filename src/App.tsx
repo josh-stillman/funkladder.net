@@ -1,26 +1,34 @@
 import { createRef, useEffect } from 'react'
 import PWABadge from './PWABadge.tsx'
 import './App.css'
-import Hydra from 'hydra-synth';
+import { enterDefaultState } from './visualizations/visualizer.ts'
+import { kissMyPatootieVisualization } from './visualizations/kissMyPatootie.ts'
+import audio from '../public/patootie.m4a';
 
-const h = new Hydra({ makeGlobal: false, detectAudio: false }).synth
+// const h = new Hydra({ makeGlobal: false, detectAudio: false }).synth
 
 
 function App() {
 
-  const canvasRef = createRef<HTMLCanvasElement>();
+  const startPatootie = () => {
+    new Audio(audio).play();
+    kissMyPatootieVisualization();
+  }
+
+  // const canvasRef = createRef<HTMLCanvasElement>();
 
   useEffect(() => {
-   h.osc().rotate().out();
+   enterDefaultState();
   }, [])
 
   return (
     <>
-    {/* <h1>hello</h1> */}
     <div className='app-container'>
+    <audio/>
+    <button className="play-button" onClick={startPatootie}>play</button>
 
 
-    <canvas ref={canvasRef}/>
+    {/* <canvas ref={canvasRef}/> */}
       <PWABadge />
           </div>
     </>
