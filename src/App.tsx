@@ -3,7 +3,7 @@ import PWABadge from './PWABadge.tsx'
 import './App.css'
 import { enterDefaultState } from './visualizations/visualizer.ts'
 import { kissMyPatootieVisualization } from './visualizations/kissMyPatootie.ts'
-import audio from '../public/patootie.m4a';
+import audio from '/patootie.m4a';
 
 // const h = new Hydra({ makeGlobal: false, detectAudio: false }).synth
 
