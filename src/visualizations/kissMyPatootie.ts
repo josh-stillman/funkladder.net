@@ -3,14 +3,10 @@ import { visualize } from './visualizer';
 
 export const kissMyPatootieVisualization = () => {
   h.bpm = 55;
-  const operations = [
-    rotate,
-    rotate2,
-    waveSwirl,
-  ];
+  const operations = [rotate, rotate2, waveSwirl];
 
-  visualize({durationMS: 5000, operations})
-}
+  visualize({ durationMS: 5000, operations });
+};
 
 // bpm = 37.5
 //setup
@@ -33,27 +29,25 @@ export const kissMyPatootieVisualization = () => {
 const rotate = () => {
   src(s0).out(o1);
   osc(10).rotate().out(o2);
-  src(o1).modulate(o2).out(o0)
-}
+  src(o1).modulate(o2).out(o0);
+};
 
 // osc(10).rotate().out(o2)
 
 const rotate2 = () => {
   src(s0).out(o1);
   osc(10).rotate(90).out(o2);
-  src(o1).modulate(o2).out(o0)
-}
+  src(o1).modulate(o2).out(o0);
+};
 
 // // rotate it again, swirly
 // osc(10).rotate(90).out(o2)
 
 const waveSwirl = () => {
   src(s0).out(o1);
-  osc(2, -2).out(o2)
-  src(o1).modulate(o2).out(o0)
-}
-
-
+  osc(2, -2).out(o2);
+  src(o1).modulate(o2).out(o0);
+};
 
 // // waving back and forth
 // osc(2, -2).out(o2)
