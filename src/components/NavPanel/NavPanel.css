@@ -1,0 +1,12 @@
+.navPanel {
+  width: 70%;
+  height: 70%;
+  min-width: 800px;
+  background: rgba(0, 0, 0, 1);
+  border: 1px solid white;
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
+  margin-top: 15px;
+  min-height: 100px;
+}
