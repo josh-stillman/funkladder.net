@@ -18,10 +18,11 @@ import {
 } from './hydraInstance';
 import { randomInt, visualize } from './visualizer';
 
-export const kissMyPatootieVisualization = (
-  abortRef: RefObject<boolean>,
-  durationSeconds = 3 * 60,
-  bpm = 55
+export const defaultVisualization = (
+  abortRef: RefObject<{ [key: number]: boolean }>,
+  invocation: number,
+  durationSeconds: number,
+  bpm: number
 ) => {
   h.bpm = bpm;
 
@@ -51,6 +52,8 @@ export const kissMyPatootieVisualization = (
     durationMS: durationSeconds * 1000,
     operations,
     abortRef,
+    invocation,
+    bpm,
   });
 };
 

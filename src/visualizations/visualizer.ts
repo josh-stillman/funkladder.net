@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import { s0, s1, s2, s3, o0, o1, o2, o3, src, osc, h } from './hydraInstance';
-// export const h = new Hydra({ makeGlobal: false, detectAudio: false }).synth
+import { MUSIC_VIDEOS } from '../musicVideos/musicVideos';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -13,35 +13,50 @@ export const randomSignedInt = (absMax: number) =>
 
 export const visualize = async ({
   abortRef,
+  invocation,
   durationMS,
   operations,
+  bpm,
   randomize = true,
 }: {
-  abortRef: RefObject<boolean>;
+  abortRef: RefObject<{ [key: number]: boolean }>;
+  invocation: number;
   durationMS: number;
   operations: Array<() => void>;
   randomize?: boolean;
+  bpm: number;
 }) => {
-  const opDuration = durationMS / operations.length;
+  const beatDurationSeconds = 60 / bpm;
+  const measure = beatDurationSeconds * 4;
 
-  console.log({ opDuration, durationMS, operations: operations.length });
+  h.bpm = bpm;
 
-  while (!abortRef.current && operations.length) {
-    const i = randomInt(operations.length - 1);
-    operations[i]();
-    console.log('operation', operations[i].name);
-    operations.splice(i, 1);
+  const opDuration = measure * 2 * 1000;
+
+  const turns = Math.round(durationMS / opDuration);
+
+  // shuffle
+  for (let i = 0; i < turns; i++) {
+    if (abortRef.current[invocation]) {
+      break;
+    }
+    const op = randomize ? randomInt(operations.length - 1) : i;
+    operations[op]();
+    console.log('operation', operations[op].name);
     await sleep(opDuration);
-  } // revert to pickign random ones?
+  }
 
   enterDefaultState();
   // set is playing to false.
 };
 
-export const enterDefaultState = () => {
-  s0.initImage('./kiss-my-patootie-lips.png');
+export const loadImageS0 = (image: string) => {
+  s0.initImage(image);
+};
 
-  // render static picture
+export const enterDefaultState = (image = MUSIC_VIDEOS.patootie.imageFile) => {
+  loadImageS0(image);
+
   src(s0).out(o1);
   osc(3).out(o2);
 
