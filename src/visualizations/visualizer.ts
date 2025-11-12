@@ -55,9 +55,6 @@ export const visualize = async ({
     console.log('operation', operations[op].name);
     await sleep(opDuration);
   }
-
-  enterDefaultState();
-  // set is playing to false.
 };
 
 export const loadImageS0 = (image: string) => {

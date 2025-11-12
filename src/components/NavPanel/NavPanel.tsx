@@ -9,15 +9,26 @@ interface Props {
   stop: () => void;
   isPlaying: boolean;
   chooseSong: (song: SONGS) => void;
+  canPlay: boolean;
 }
 
-export const NavPanel = ({ play, stop, isPlaying, chooseSong }: Props) => {
+export const NavPanel = ({
+  play,
+  stop,
+  isPlaying,
+  chooseSong,
+  canPlay,
+}: Props) => {
   return (
     <section className="navPanel">
-      <img className="logo" src="./funk.svg" />
+      <img
+        className="logo"
+        src="./funk.svg"
+        onClick={() => chooseSong('patootie')}
+      />
 
       <div className="controls">
-        <button onClick={isPlaying ? stop : play}>
+        <button disabled={!canPlay} onClick={isPlaying ? stop : play}>
           {isPlaying ? <RxStop /> : <SlControlPlay />}
         </button>
       </div>

@@ -20,12 +20,20 @@ function App() {
   const chooseSong = (song: SONGS) => {
     const video = MUSIC_VIDEOS[song];
     setSelectedMusicVideo(video);
-    stop();
+    stopAudio();
+
+    // load audio
+    setCanPlay(false);
+    if (audioRef.current) {
+      audioRef.current.src = video.audioFile;
+    }
+
     enterDefaultState(video.imageFile);
   };
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [showNavPanel, setShowNavPanel] = useState(true);
+  const [canPlay, setCanPlay] = useState(false);
   const abortRef = useRef<{ [key: number]: boolean }>({ 0: false });
 
   const [invocation, setInvocation] = useState(0);
@@ -39,19 +47,21 @@ function App() {
     }
 
     setIsPlaying(true);
-    // increment invocation;
-    setInvocation(i => i++);
+
+    const currentInvocation = invocation + 1;
+    setInvocation(currentInvocation);
+
     abortRef.current = { ...abortRef.current, [invocation]: false };
 
     selectedMusicVideo.visualization(
       abortRef,
-      invocation,
+      currentInvocation,
       selectedMusicVideo.lengthSeconds,
       selectedMusicVideo.bpm
     );
-  }, [abortRef, audioRef, selectedMusicVideo, invocation]);
+  }, [abortRef, audioRef, selectedMusicVideo, invocation, setInvocation]);
 
-  const stop = useCallback(() => {
+  const stopAudio = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -59,17 +69,24 @@ function App() {
 
     setIsPlaying(false);
     abortRef.current = { ...abortRef.current, [invocation]: true };
-    //
+  }, [audioRef, abortRef, invocation]);
 
+  const stop = useCallback(() => {
+    stopAudio();
     enterDefaultState(selectedMusicVideo.imageFile);
-  }, [audioRef, abortRef, selectedMusicVideo, invocation]);
+  }, [selectedMusicVideo, stopAudio]);
 
   useEffect(() => {
     enterDefaultState(selectedMusicVideo.imageFile);
+
+    // load audio
+    if (audioRef.current) {
+      audioRef.current.src = selectedMusicVideo.audioFile;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // cinema mode on press
+  // cinema mode on press space bar
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === ' ') {
@@ -105,6 +122,20 @@ function App() {
     };
   }, [audioRef, selectedMusicVideo]);
 
+  useEffect(() => {
+    const handleCanPlay = () => {
+      console.log('canplay', selectedMusicVideo);
+      setCanPlay(true);
+    };
+
+    audioRef.current?.addEventListener('canplay', handleCanPlay);
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      audioRef.current?.removeEventListener('canplay', handleCanPlay);
+    };
+  }, [audioRef, selectedMusicVideo]);
+
   return (
     <>
       <div className="app-container">
@@ -114,6 +145,7 @@ function App() {
             stop={stop}
             isPlaying={isPlaying}
             chooseSong={chooseSong}
+            canPlay={canPlay}
           />
         )}
         <audio ref={audioRef} />
