@@ -35,10 +35,10 @@ export const NavPanel = ({
 
       <nav className="songSelector">
         <a href="#patootie" onClick={() => chooseSong('patootie')}>
-          Kiss my Patootie
+          Patootie
         </a>
         <a href="#dorks" onClick={() => chooseSong('dorks')}>
-          The Happening Dorks
+          Dorks
         </a>
       </nav>
 
