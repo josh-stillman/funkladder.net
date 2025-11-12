@@ -14,8 +14,12 @@ interface Props {
 export const NavPanel = ({ play, stop, isPlaying, chooseSong }: Props) => {
   return (
     <section className="navPanel">
-      <div className="logo">
-        <img height="100%" src="./funk.svg" />
+      <img className="logo" src="./funk.svg" />
+
+      <div className="controls">
+        <button onClick={isPlaying ? stop : play}>
+          {isPlaying ? <RxStop /> : <SlControlPlay />}
+        </button>
       </div>
 
       <nav className="songSelector">
@@ -27,11 +31,6 @@ export const NavPanel = ({ play, stop, isPlaying, chooseSong }: Props) => {
         </a>
       </nav>
 
-      <div className="controls">
-        <button onClick={isPlaying ? stop : play}>
-          {isPlaying ? <RxStop /> : <SlControlPlay />}
-        </button>
-      </div>
       <div className="socials">
         <a
           href="https://www.instagram.com/funk.ladder/"

@@ -91,6 +91,20 @@ function App() {
     };
   }, [isPlaying, stop, play]);
 
+  useEffect(() => {
+    const handleSongEnded = (event: Event) => {
+      enterDefaultState(selectedMusicVideo.imageFile);
+      setIsPlaying(false);
+    };
+
+    audioRef.current?.addEventListener('ended', handleSongEnded);
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      audioRef.current?.removeEventListener('ended', handleSongEnded);
+    };
+  }, [audioRef, selectedMusicVideo]);
+
   return (
     <>
       <div className="app-container">
