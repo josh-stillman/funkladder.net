@@ -1,5 +1,15 @@
 import type { RefObject } from 'react';
-import { s0, s1, s2, s3, o0, o1, o2, o3, src, osc, h } from './hydraInstance';
+import {
+  s0,
+  /*s1, s2, s3,*/
+  o0,
+  o1,
+  o2,
+  // o3,
+  src,
+  osc,
+  h,
+} from './hydraInstance';
 import { MUSIC_VIDEOS } from '../musicVideos/musicVideos';
 
 function sleep(ms: number) {

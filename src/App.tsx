@@ -92,7 +92,7 @@ function App() {
   }, [isPlaying, stop, play]);
 
   useEffect(() => {
-    const handleSongEnded = (event: Event) => {
+    const handleSongEnded = () => {
       enterDefaultState(selectedMusicVideo.imageFile);
       setIsPlaying(false);
     };

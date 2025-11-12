@@ -1,9 +1,9 @@
 import type { RefObject } from 'react';
 import {
   s0,
-  s1,
-  s2,
-  s3,
+  // s1,
+  // s2,
+  // s3,
   o0,
   o1,
   o2,
@@ -14,7 +14,7 @@ import {
   noise,
   voronoi,
   shape,
-  render,
+  // render,
 } from './hydraInstance';
 import { randomInt, visualize } from './visualizer';
 
@@ -162,9 +162,9 @@ const triangles = () => {
 
 // // show each output
 // render()
-const renderMe = () => {
-  render();
-};
+// const renderMe = () => {
+//   render();
+// };
 
 // // rotating bar in the middle
 // osc(5).out(o2)
