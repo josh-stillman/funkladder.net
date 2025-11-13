@@ -51,7 +51,7 @@ function App() {
     const currentInvocation = invocation + 1;
     setInvocation(currentInvocation);
 
-    abortRef.current = { ...abortRef.current, [invocation]: false };
+    abortRef.current = { ...abortRef.current, [currentInvocation]: false };
 
     selectedMusicVideo.visualization(
       abortRef,
