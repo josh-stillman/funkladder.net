@@ -19,6 +19,7 @@ export const NavPanel = ({
   chooseSong,
   canPlay,
 }: Props) => {
+  console.log({ canPlay }, 'in component');
   return (
     <section className="navPanel">
       <img
