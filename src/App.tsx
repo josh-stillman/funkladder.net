@@ -40,11 +40,8 @@ function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const play = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.src = selectedMusicVideo.audioFile;
-      audioRef.current.play();
-    }
+  const play = useCallback(async () => {
+    await audioRef.current?.play();
 
     setIsPlaying(true);
 
