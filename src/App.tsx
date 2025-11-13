@@ -76,16 +76,6 @@ function App() {
     enterDefaultState(selectedMusicVideo.imageFile);
   }, [selectedMusicVideo, stopAudio]);
 
-  useEffect(() => {
-    enterDefaultState(selectedMusicVideo.imageFile);
-
-    // load audio
-    if (audioRef.current) {
-      audioRef.current.src = selectedMusicVideo.audioFile;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // cinema mode on press space bar
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -124,17 +114,23 @@ function App() {
 
   useEffect(() => {
     const handleCanPlay = () => {
-      console.log('canplay', selectedMusicVideo);
       setCanPlay(true);
     };
 
     audioRef.current?.addEventListener('canplay', handleCanPlay);
 
+    enterDefaultState(selectedMusicVideo.imageFile);
+
+    // load audio
+    if (audioRef.current) {
+      audioRef.current.src = selectedMusicVideo.audioFile;
+    }
+
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       audioRef.current?.removeEventListener('canplay', handleCanPlay);
     };
-  }, [audioRef, selectedMusicVideo]);
+  }, []);
 
   return (
     <>
@@ -148,7 +144,9 @@ function App() {
             canPlay={canPlay}
           />
         )}
+
         <audio ref={audioRef} />
+
         <PWABadge />
       </div>
     </>
