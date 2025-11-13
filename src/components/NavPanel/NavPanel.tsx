@@ -28,7 +28,7 @@ export const NavPanel = ({
       />
 
       <div className="controls">
-        <button disabled={!canPlay} onClick={isPlaying ? stop : play}>
+        <button onClick={isPlaying ? stop : play}>
           {isPlaying ? <RxStop /> : <SlControlPlay />}
         </button>
       </div>
