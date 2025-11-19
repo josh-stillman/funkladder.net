@@ -9,17 +9,9 @@ interface Props {
   stop: () => void;
   isPlaying: boolean;
   chooseSong: (song: SONGS) => void;
-  canPlay: boolean;
 }
 
-export const NavPanel = ({
-  play,
-  stop,
-  isPlaying,
-  chooseSong,
-  canPlay,
-}: Props) => {
-  console.log({ canPlay }, 'in component');
+export const NavPanel = ({ play, stop, isPlaying, chooseSong }: Props) => {
   return (
     <section className="navPanel">
       <img

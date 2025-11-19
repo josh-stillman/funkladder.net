@@ -23,7 +23,6 @@ function App() {
     stopAudio();
 
     // load audio
-    setCanPlay(false);
     if (audioRef.current) {
       audioRef.current.src = video.audioFile;
     }
@@ -33,7 +32,6 @@ function App() {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [showNavPanel, setShowNavPanel] = useState(true);
-  const [canPlay, setCanPlay] = useState(false);
   const abortRef = useRef<{ [key: number]: boolean }>({ 0: false });
 
   const [invocation, setInvocation] = useState(0);
@@ -111,23 +109,12 @@ function App() {
   }, [audioRef, selectedMusicVideo]);
 
   useEffect(() => {
-    const handleCanPlay = () => {
-      setCanPlay(true);
-    };
-
-    audioRef.current?.addEventListener('canplay', handleCanPlay);
-
     enterDefaultState(selectedMusicVideo.imageFile);
 
     // load audio
     if (audioRef.current) {
       audioRef.current.src = selectedMusicVideo.audioFile;
     }
-
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      audioRef.current?.removeEventListener('canplay', handleCanPlay);
-    };
   }, []);
 
   return (
@@ -139,7 +126,6 @@ function App() {
             stop={stop}
             isPlaying={isPlaying}
             chooseSong={chooseSong}
-            canPlay={canPlay}
           />
         )}
 
