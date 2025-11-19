@@ -3,7 +3,7 @@ import { defaultVisualization } from '../visualizations/kissMyPatootie';
 import patootie from '/Funk Ladder - Kiss My Patootie.m4a';
 import dorks from '/Funk Ladder - The Happening Dorks.m4a';
 import patootieImage from '/kiss-my-patootie-lips.png';
-import dorksImage from '/dorks.jpg';
+import dorksImage from '/dorks-processed.png';
 
 export interface MusicVideo {
   name: string;
