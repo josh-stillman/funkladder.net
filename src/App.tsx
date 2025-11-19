@@ -99,6 +99,7 @@ function App() {
     const handleSongEnded = () => {
       enterDefaultState(selectedMusicVideo.imageFile);
       setIsPlaying(false);
+      setShowNavPanel(true);
     };
 
     audioRef.current?.addEventListener('ended', handleSongEnded);
